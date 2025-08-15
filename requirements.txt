@@ -1,12 +1,12 @@
-Flask
-Flask-Cors
-gunicorn
-torch
-transformers
-sentencepiece    # required by many MarianMT / T5 models
-protobuf          # needed by transformers
-tokenizers        # Hugging Face tokenizers
-numpy             # PyTorch uses numpy
-logging         # not required if using built-in logging
-tqdm            # progress bars when downloading models
 
+flask==2.3.3
+flask-cors==5.0.0
+torch==2.7.0
+transformers==4.50.0
+sentencepiece==0.2.1
+protobuf==5.29.1
+requests==2.32.3
+tokenizers==0.21.1
+numpy==1.26.4
+tqdm==4.67.1
+gunicorn==21.2.0
