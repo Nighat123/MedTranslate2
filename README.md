@@ -123,13 +123,8 @@ http://127.0.0.1:5000/
 * [T5 Grammar Correction Model](https://huggingface.co/vennify/t5-base-grammar-correction)
 * [Flask Documentation](https://flask.palletsprojects.com/)
 
----
 
-## License
 
-This project is licensed under the MIT License.
-
-```
 
 
 
