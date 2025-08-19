@@ -24,10 +24,10 @@ body {
   color: #111;
   padding: var(--pad);
 
-  /* Light grey background */
+  
   background-color: #F4F4F9;
 
-  /* Subtle pattern: diagonal lines */
+ 
   background-image: repeating-linear-gradient(
     45deg,
     rgba(0,0,0,0.05),
@@ -52,7 +52,7 @@ h1 {
   font-size: 1.6rem;
   color: var(--primary-color);
   margin-bottom: 1.5rem;
-  font-weight: 900;   /* Bold */
+  font-weight: 900;  
   font-style: italic;
 }
 
@@ -63,11 +63,11 @@ h1 {
   align-items: center;
 }
 .row > div:first-child {
-  flex: 2;   /* first div ("I speak") gets more space */
+  flex: 2;  
 }
 
 .row > div:last-child {
-  flex: 0 0 auto;  /* second div ("I want to translate to") hugs left */
+  flex: 0 0 auto;  
 }
 
 @media (max-width: 500px) {
@@ -140,14 +140,14 @@ textarea {
 }
 .button-row {
   display: flex;
-  flex-wrap: wrap;  /* allow buttons to move to next line if needed */
+  flex-wrap: wrap;  
   gap: 10px;
   width: 100%;
 }
 
 .button-row button {
-  flex: 1 1 auto; /* buttons can shrink and grow */
-  min-width: 120px; /* ensures buttons are still clickable */
+  flex: 1 1 auto; 
+  min-width: 120px; 
 }
 
 
@@ -209,7 +209,7 @@ const stopBtn        = document.getElementById("stopBtn");
 const speakBtn       = document.getElementById("speakBtn");
 const statusEl       = document.getElementById("status");
 
-// Populate languages from backend
+
 fetch("/languages").then(r => r.json()).then(({ languages }) => {
   languages.forEach(lang => {
     const opt1 = document.createElement("option");
@@ -225,7 +225,7 @@ fetch("/languages").then(r => r.json()).then(({ languages }) => {
   targetSelect.value = "es";
 });
 
-// Web Speech API
+
 const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
 let recognition = SR ? new SR() : null;
 if (recognition) {
@@ -237,7 +237,7 @@ if (recognition) {
 let listening = false;
 let finalBuffer = "";
 
-// Start recording
+
 recordBtn.onclick = () => {
   if (!recognition || listening) return;
   originalText.value = "";
@@ -250,14 +250,14 @@ recordBtn.onclick = () => {
   statusEl.textContent = "Listening…";
 };
 
-// Stop recording
+
 stopBtn.onclick = () => {
   if (!recognition || !listening) return;
   recognition.stop();
   statusEl.textContent = "Processing…";
 };
 
-// Recognition events
+
 if (recognition) {
   recognition.onresult = (e) => {
     let interim = "";
@@ -290,7 +290,7 @@ if (recognition) {
   };
 }
 
-// Translation function
+
 async function translateViaBackend(text) {
   try {
     statusEl.textContent = "Enhancing & translating…";
@@ -319,12 +319,12 @@ async function translateViaBackend(text) {
     console.error(err);
     statusEl.textContent = "Error: " + err.message;
   } finally {
-    // Enable record button after translation
+   
     recordBtn.disabled = false;
   }
 }
 
-// Speak translation
+
 speakBtn.onclick = () => {
   const txt = translatedText.value.trim();
   if (!txt) return;
