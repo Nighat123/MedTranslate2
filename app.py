@@ -10,7 +10,7 @@ CORS(app)
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("medical-translator")
 
-# --------- Optional grammar/medical enhancement model (T5-based) ----------
+
 GEC_MODEL_ID = "vennify/t5-base-grammar-correction"
 try:
     gec_tokenizer = AutoTokenizer.from_pretrained(GEC_MODEL_ID)
@@ -23,7 +23,7 @@ except Exception as e:
     gec_model = None
     USE_GEC = False
 
-# --------- Translation model cache ----------
+
 translation_cache: dict[str, tuple[AutoTokenizer, AutoModelForSeq2SeqLM]] = {}
 
 SUPPORTED_LANGUAGES = {
@@ -75,13 +75,12 @@ def load_translation_model(source_lang: str, target_lang: str):
         return tok, mdl
     except Exception as e:
         logger.warning(f"Direct model {model_id} unavailable: {e}")
-        return None  # fallback via English will be handled
-
+        return None  
 
 def run_translation(text: str, source_lang: str, target_lang: str) -> str:
     """Try direct translation; if unavailable, fallback via English."""
 
-    # 1) Direct translation
+
     model = load_translation_model(source_lang, target_lang)
     if model:
         tok, mdl = model
@@ -90,7 +89,7 @@ def run_translation(text: str, source_lang: str, target_lang: str) -> str:
             generated = mdl.generate(**inputs, max_new_tokens=128, num_beams=4, early_stopping=True)
         return tok.decode(generated[0], skip_special_tokens=True).strip()
 
-    # 2) Fallback via English
+    
     if source_lang != "en":
         model_to_en = load_translation_model(source_lang, "en")
         if not model_to_en:
